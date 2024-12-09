@@ -16,6 +16,7 @@ class UserService
 
     /**
      * Returns all resource data
+     * @return JsonResource
      */
     public function all(): JsonResource
     {
@@ -33,6 +34,8 @@ class UserService
 
     /**
      * Returns one resource data
+     * @param string $uuid
+     * @return ?JsonResource
      */
     public function find(string $uuid): ?JsonResource
     {
@@ -50,10 +53,10 @@ class UserService
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  object  $request
+     * @param object $request
+     * @return array
      */
-    public function store($request): array
+    public function store(object $request): array
     {
         try {
             
@@ -87,8 +90,9 @@ class UserService
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  object  $request
+     * @param object $request
+     * @param string $uuid
+     * @return array
      */
     public function update($request, $uuid): array
     {
@@ -123,6 +127,7 @@ class UserService
 
     /**
      * Remove the specified resource from storage.
+     * @param string $uuid
      */
     public function delete(string $uuid): void
     {
