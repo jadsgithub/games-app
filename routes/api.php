@@ -1,18 +1,30 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// LOGIN
+Route::controller(AuthenticationController::class)->group(function () {
+    Route::get('/login', 'login')->name('login');             
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    // USERS
+    Route::prefix('/users')->group(function () {
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/show/{uuid}', 'show')->name('users.show');
+            Route::get('/', 'index')->name('users.index');
+            Route::post('/store', 'store')->name('users.store');
+            Route::put('/update/{uuid}', 'update')->name('users.update');
+            Route::delete('/destroy/{uuid}', 'destroy')->name('users.destroy');                
+        });
+    });
+
+    // LOGOUT
+    Route::controller(AuthenticationController::class)->group(function () {
+        Route::get('/logout', 'logout')->name('logout');             
+    });
+    
 });
