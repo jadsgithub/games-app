@@ -15,30 +15,30 @@ docker-compose up -d --build
 
 # Instalar dependências do projeto
 echo "Instalando dependências do projeto..."
-composer install
+docker exec -it games composer install
 
 # Garantir permissões adequadas
 echo "Setando permissoes adequadas..."
-chmod -R 775 storage bootstrap/cache
-chown -R www-data:www-data /var/www
+docker exec -it games chmod -R 775 storage bootstrap/cache
+docker exec -it games chown -R www-data:www-data /var/www
 
 # Configurar Laravel
 echo "Configurando Laravel..."
-php artisan key:generate
-php artisan config:clear
-php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
+docker exec -it games php artisan key:generate
+docker exec -it games php artisan config:clear
+docker exec -it games php artisan cache:clear
+docker exec -it games php artisan route:clear
+docker exec -it games php artisan view:clear
 
 # Esperar pelo banco de dados (usando um loop)
 echo "Rodando migrations..."
-until php artisan migrate --force; do
+until docker exec -it games php artisan migrate --force; do
     echo "Banco de dados indisponível. Tentando novamente em 5 segundos..."
     sleep 5
 done
 
 # Rodar seeders
 echo "Rodando seeders..."
-php artisan db:seed --force
+docker exec -it games php artisan db:seed --force
 
 echo "Ambiente configurado com sucesso!"

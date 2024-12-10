@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Services\UserService;
+use App\Http\Requests\TeamCreateRequest;
+use App\Http\Requests\TeamUpdateRequest;
+use App\Services\TeamService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
-class UserController extends BaseController
+class TeamController extends BaseController
 {
      /**
      * Construct
@@ -17,7 +17,7 @@ class UserController extends BaseController
      * @return void
      */
     public function __construct(
-        protected UserService $service
+        protected TeamService $service
     ) {
     }
 
@@ -28,11 +28,11 @@ class UserController extends BaseController
     {
         try {
 
-            return $this->sendResponse($this->service->all(), 'Dados dos usuários retornados com sucesso.');
+            return $this->sendResponse($this->service->all(), 'Dados dos times retornados com sucesso.');
 
         } catch (\Exception $e) {
 
-            Log::info('Error index UserController: '.$e->getMessage().' Line: '.$e->getLine());
+            Log::info('Error index TeamController: '.$e->getMessage().' Line: '.$e->getLine());
 
             return $this->sendError('Error: ', $e->getMessage());
 
@@ -50,15 +50,15 @@ class UserController extends BaseController
 
             if (is_null($data)) {
 
-                return $this->sendError('Usuário não encontrado.');
+                return $this->sendError('Time não encontrado.');
 
             }
 
-            return $this->sendResponse($data, 'Dados do usuário retornados com sucesso.');
+            return $this->sendResponse($data, 'Dados do time retornados com sucesso.');
 
         } catch (\Exception $e) {
 
-            Log::info('Error show UserController: '.$e->getMessage().' Line: '.$e->getLine());
+            Log::info('Error show TeamController: '.$e->getMessage().' Line: '.$e->getLine());
             return $this->sendError('Error: ', $e->getMessage());
 
         }
@@ -67,7 +67,7 @@ class UserController extends BaseController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserCreateRequest $request): JsonResponse
+    public function store(TeamCreateRequest $request): JsonResponse
     {
         try {
 
@@ -77,7 +77,7 @@ class UserController extends BaseController
 
         } catch (\Exception $e) {
 
-            Log::info('Error store UserController: '.$e->getMessage().' Line: '.$e->getLine());
+            Log::info('Error store TeamController: '.$e->getMessage().' Line: '.$e->getLine());
 
             return $this->sendError('Error: ', $e->getMessage());
 
@@ -87,7 +87,7 @@ class UserController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserUpdateRequest $request, string $uuid): JsonResponse
+    public function update(TeamUpdateRequest $request, string $uuid): JsonResponse
     {
         try {
 
@@ -97,7 +97,7 @@ class UserController extends BaseController
 
         } catch (\Exception $e) {
 
-            Log::info('Error update UserController: '.$e->getMessage().' Line: '.$e->getLine());
+            Log::info('Error update TeamController: '.$e->getMessage().' Line: '.$e->getLine());
 
             return $this->sendError('Error: ', $e->getMessage());
 
@@ -113,11 +113,11 @@ class UserController extends BaseController
 
             $this->service->delete($uuid);
 
-            return $this->sendResponse([], 'Usuário removido com sucesso!');
+            return $this->sendResponse([], 'Time removido com sucesso!');
 
         } catch (\Exception $e) {
 
-            Log::info('Error destroy UserController: '.$e->getMessage().' Line: '.$e->getLine());
+            Log::info('Error destroy TeamController: '.$e->getMessage().' Line: '.$e->getLine());
             
             return $this->sendError('Error: ', $e->getMessage());
 

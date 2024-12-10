@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,17 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/store', 'store')->name('users.store');
             Route::put('/update/{uuid}', 'update')->name('users.update');
             Route::delete('/destroy/{uuid}', 'destroy')->name('users.destroy')->middleware('role:admin');               
+        });
+    });
+
+    // TEAMS
+    Route::prefix('/teams')->group(function () {
+        Route::controller(TeamController::class)->group(function () {
+            Route::get('/show/{uuid}', 'show')->name('teams.show');
+            Route::get('/', 'index')->name('teams.index');
+            Route::post('/store', 'store')->name('teams.store');
+            Route::put('/update/{uuid}', 'update')->name('teams.update');
+            Route::delete('/destroy/{uuid}', 'destroy')->name('teams.destroy')->middleware('role:admin');               
         });
     });
 
