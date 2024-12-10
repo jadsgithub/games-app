@@ -23,8 +23,10 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
+            return response()->json([
+                'error' => 'Você não tem permissão para realizar essa ação.',
+            ], 403);
         });
     }
 }

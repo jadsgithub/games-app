@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class AuthenticationService
@@ -12,14 +13,12 @@ class AuthenticationService
      * Performs user login
      * @return array
      */
-    public function login(array $credentials): array
+    public function login(array $credentials): ?array
     {
         try {
 
             if (!Auth::attempt($credentials)) {
-                throw ValidationException::withMessages([
-                    'email' => ['Credenciais inválidas.'],
-                ]);
+                return null;
             }
     
             $user = Auth::user();
@@ -33,6 +32,7 @@ class AuthenticationService
         } catch (\Exception $e) {
 
             Log::info('Error login AuthenticationService: '.$e->getMessage().' Line: '.$e->getLine());
+            return null;
 
         }
     }

@@ -32,6 +32,7 @@ class UserController extends BaseController
         } catch (\Exception $e) {
 
             Log::info('Error index UserController: '.$e->getMessage().' Line: '.$e->getLine());
+
             return $this->sendError('Error: ', $e->getMessage());
 
         }
@@ -40,14 +41,16 @@ class UserController extends BaseController
     /**
      * Display the specified resource.
      */
-    public function show(string $id): JsonResponse
+    public function show(string $uuid): JsonResponse
     {
         try {
 
-            $data = $this->service->find($id);
+            $data = $this->service->find($uuid);
 
             if (is_null($data)) {
+
                 return $this->sendError('Usuário não encontrado.');
+
             }
 
             return $this->sendResponse($data, 'Dados do usuário retornados com sucesso.');
@@ -68,11 +71,13 @@ class UserController extends BaseController
         try {
 
             $data = $this->service->store($request);
+
             return $this->sendResponse($data);
 
         } catch (\Exception $e) {
 
             Log::info('Error store UserController: '.$e->getMessage().' Line: '.$e->getLine());
+
             return $this->sendError('Error: ', $e->getMessage());
 
         }
@@ -86,11 +91,13 @@ class UserController extends BaseController
         try {
 
             $data = $this->service->update($request, $uuid);
+
             return $this->sendResponse($data);
 
         } catch (\Exception $e) {
 
             Log::info('Error update UserController: '.$e->getMessage().' Line: '.$e->getLine());
+
             return $this->sendError('Error: ', $e->getMessage());
 
         }
@@ -104,11 +111,13 @@ class UserController extends BaseController
         try {
 
             $this->service->delete($uuid);
+
             return $this->sendResponse([], 'Usuário removido com sucesso!');
 
         } catch (\Exception $e) {
 
             Log::info('Error destroy UserController: '.$e->getMessage().' Line: '.$e->getLine());
+            
             return $this->sendError('Error: ', $e->getMessage());
 
         }

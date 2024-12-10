@@ -22,7 +22,8 @@ class UserService
     {
         try {
 
-            $data = $this->userRepository::all();
+            $data = $this->userRepository::getAllUsers();
+            
             return UserResource::collection($data);
 
         } catch (\Exception $e) {
@@ -41,7 +42,8 @@ class UserService
     {
         try {
 
-            $data = $this->userRepository::firstByUuid($uuid);
+            $data = $this->userRepository::getUserByUuid($uuid);
+
             return (new UserResource($data));
 
         } catch (\Exception $e) {
@@ -60,26 +62,15 @@ class UserService
     {
         try {
             
-            $user = $this->userRepository::firstOrCreate(
-                ['email' => $request->email],
+            $this->userRepository::createUser(
                 [
+                    'email' => $request->email,
                     'name' => $request->name,
                     'password' => $request->password
                 ]
-            );
+            );           
 
-            if($user->wasRecentlyCreated){              
-
-                return [
-                    'exists' => false,
-                    'message' => 'Usuário cadastrado com sucesso!'
-                ];
-            }
-
-            return [
-                'exists' => true,
-                'message' => 'Este usuário já possui cadastro no sistema.'
-            ];
+            return ['message' => 'Usuário cadastrado com sucesso!'];
 
         } catch (\Exception $e) {
 
@@ -97,26 +88,11 @@ class UserService
     public function update($request, $uuid): array
     {
         try {
-            $user = $this->userRepository::firstByUuid($uuid);
+            $user = $this->userRepository::getUserByUuid($uuid);
 
-            $existsUser = $this->userRepository::loadModel()
-                ->where('id', '!=', $user->id)
-                ->where('email', $request->email)
-                ->exists();
+            $this->userRepository::updateUser($user->id, ['name' => $request->name, 'email' => $request->email]);
 
-            if($existsUser){
-                return [
-                    'exists' => true,
-                    'message' => 'Existe outro usuário cadastro com este email.'
-                ];
-            }
-
-            $this->userRepository::update($user->id, ['name' => $request->name, 'email' => $request->email]);
-  
-            return [
-                'exists' => false,
-                'message' => 'Usuário atualizado com sucesso!',
-            ];
+            return ['message' => 'Usuário atualizado com sucesso!'];
 
         } catch (\Exception $e) {
 
@@ -133,8 +109,9 @@ class UserService
     {
         try {
 
-            $user = $this->userRepository::firstByUuid($uuid);
-            $this->userRepository::delete($user->id);
+            $user = $this->userRepository::getUserByUuid($uuid);
+
+            $this->userRepository::destroyUser($user->id);
 
         } catch (\Exception $e) {
 

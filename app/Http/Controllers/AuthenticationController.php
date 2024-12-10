@@ -27,8 +27,8 @@ class AuthenticationController extends BaseController
     {
         try {
 
-            $data = $this->service->login($request);
-            return $this->sendResponse($data, 'Usuário logado com sucesso.');
+            $data = $this->service->login($request->only(['email', 'password']));
+            return $this->sendResponse($data, $data ? 'Usuário logado com sucesso.' : 'Credenciais inválidas.');
 
         } catch (\Exception $e) {
 

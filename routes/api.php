@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/', 'index')->name('users.index');
             Route::post('/store', 'store')->name('users.store');
             Route::put('/update/{uuid}', 'update')->name('users.update');
-            Route::delete('/destroy/{uuid}', 'destroy')->name('users.destroy');                
+            Route::delete('/destroy/{uuid}', 'destroy')->name('users.destroy')->middleware('role:admin');               
         });
     });
 
