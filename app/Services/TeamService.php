@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Resources\TeamResource;
+use App\Jobs\InsertTeamsJob;
 use App\Repositories\TeamRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
@@ -110,6 +111,22 @@ class TeamService
         } catch (\Exception $e) {
 
             Log::info('Error delete TeamService: '.$e->getMessage().' Line: '.$e->getLine());
+
+        }
+    }
+
+    /**
+     * Automatically register teams
+     */
+    public function insertTeamsAutomatically(): void
+    {
+        try {
+
+            InsertTeamsJob::dispatch();
+
+        } catch (\Exception $e) {
+
+            Log::info('Error insertTeamsAutomatically TeamController: '.$e->getMessage().' Line: '.$e->getLine());
 
         }
     }

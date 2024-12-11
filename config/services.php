@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'balldontlie' => [
+        'api_url' => env('BALLDONTLIE_API_URL'),
+        'api_key' => env('BALLDONTLIE_API_KEY'),
+    ],
+
 ];

@@ -124,4 +124,24 @@ class TeamController extends BaseController
         }
     }
 
+    /**
+     * Automatically register teams
+     */
+    public function insertTeamsAutomatically(): JsonResponse
+    {
+        try {
+
+            $this->service->insertTeamsAutomatically();
+
+            return $this->sendResponse([], 'Os times estão sendo inseridos automaticamente!');
+
+        } catch (\Exception $e) {
+
+            Log::info('Error insertTeamsAutomatically TeamController: '.$e->getMessage().' Line: '.$e->getLine());
+            
+            return $this->sendError('Error: ', $e->getMessage());
+
+        }
+    }
+
 }

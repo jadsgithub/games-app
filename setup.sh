@@ -19,8 +19,8 @@ docker exec -it games composer install
 
 # Garantir permissões adequadas
 echo "Setando permissoes adequadas..."
-docker exec -it games chmod -R 775 storage bootstrap/cache
-docker exec -it games chown -R www-data:www-data /var/www
+chmod -R 775 storage bootstrap/cache
+chown -R www-data:www-data /var/www
 
 # Configurar Laravel
 echo "Configurando Laravel..."

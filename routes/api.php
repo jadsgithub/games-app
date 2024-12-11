@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // TEAMS
     Route::prefix('/teams')->group(function () {
         Route::controller(TeamController::class)->group(function () {
+            Route::get('/register-teams-automatically', 'insertTeamsAutomatically')->name('teams.register-teams-automatically');
             Route::get('/show/{uuid}', 'show')->name('teams.show');
             Route::get('/', 'index')->name('teams.index');
             Route::post('/store', 'store')->name('teams.store');

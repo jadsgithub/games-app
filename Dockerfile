@@ -39,4 +39,9 @@ WORKDIR /var/www
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
+# Configure tini
+RUN apt-get update && apt-get install -y tini
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["sh", "-c", "php artisan horizon & php-fpm"]
+
 USER $user
