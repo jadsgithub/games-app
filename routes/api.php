@@ -35,9 +35,10 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 
-    // LOGOUT
+    // AUTH
     Route::controller(AuthenticationController::class)->group(function () {
-        Route::get('/logout', 'logout')->name('logout');             
+        Route::get('/logout', 'logout')->name('logout');
+        Route::get('/generate-external-token', 'generateExternalToken')->name('generate-external-token');             
     });
     
 });

@@ -45,11 +45,38 @@ class AuthenticationService
     {
         try {
 
-            $user->currentAccessToken()->delete();
+            $tokens = $user->tokens()->where('name', 'auth_token')->get();
+
+            foreach ($tokens as $token) {
+                $token->delete();
+            }
 
         } catch (\Exception $e) {
 
             Log::info('Error logout AuthenticationService: '.$e->getMessage().' Line: '.$e->getLine());
+
+        }
+    }
+
+    /**
+     * Generate external token
+     * @return array
+     */
+    public function generateExternalToken(): ?array
+    {
+        try {
+    
+            $user = Auth::user();
+            $token = $user->createToken('external_token')->plainTextToken;
+    
+            return [
+                'external_token' => $token,
+            ];
+
+        } catch (\Exception $e) {
+
+            Log::info('Error generateExternalToken AuthenticationService: '.$e->getMessage().' Line: '.$e->getLine());
+            return null;
 
         }
     }

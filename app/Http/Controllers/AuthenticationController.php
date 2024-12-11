@@ -56,5 +56,23 @@ class AuthenticationController extends BaseController
         }
     }
 
+    /**
+     * Generate external token
+     */
+    public function generateExternalToken(): JsonResponse
+    {
+        try {
+
+            $data = $this->service->generateExternalToken();
+            return $this->sendResponse($data, 'Token externo gerado com sucesso.');
+
+        } catch (\Exception $e) {
+
+            Log::info('Error generateExternalToken AuthenticationController: '.$e->getMessage().' Line: '.$e->getLine());
+            return $this->sendError('Error: ', $e->getMessage());
+
+        }
+    }
+
 
 }
