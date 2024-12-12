@@ -21,6 +21,10 @@ until [ "$(docker inspect -f '{{.State.Running}}' games 2>/dev/null)" == "true" 
 done
 echo "Containers ativos."
 
+# Instalar dependências do projeto
+echo "Instalando dependências do projeto..."
+docker exec -it games composer install
+
 # Garantir permissões adequadas
 echo "Setando permissoes adequadas..."
 docker exec -it games chmod -R 775 storage bootstrap/cache
