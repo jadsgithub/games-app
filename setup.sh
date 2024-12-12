@@ -41,8 +41,4 @@ done
 echo "Rodando seeders..."
 docker exec -it games php artisan db:seed --force
 
-# Executando testes
-echo "Executando testes..."
-docker exec -it games php artisan test
-
 echo "Ambiente configurado com sucesso!"

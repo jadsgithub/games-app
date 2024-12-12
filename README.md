@@ -108,4 +108,21 @@ No painel do Horizon, é possível:
 
 ---
 
+## 9. Testes
+Para executar os testes do projeto:
+
+1. Acesse o container Docker pelo terminal:
+
+```bash
+docker exec -it games /bin/bash
+```
+
+2. Dentro do container, execute o seguinte comando:
+
+```bash
+php artisan test
+```
+
+---
+
 Este guia garante uma configuração simples e rápida para começar a utilizar a API do projeto **Games App**.
