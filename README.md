@@ -16,7 +16,7 @@ Para executar o projeto, é necessário instalar o Docker. Siga as instruções 
 Abra o terminal e execute o comando abaixo para clonar o repositório do projeto:
 
 ```bash
-git clone git@github.com:jadsgithub/games-app.git
+git clone https://github.com/jadsgithub/games-app.git
 ```
 
 ---
@@ -38,7 +38,6 @@ cd games-app
 - Os containers do projeto serão criados no Docker.
 - As dependências do projeto serão instaladas.
 - As migrations e seeders serão executados automaticamente.
-- Os testes da aplicação serão rodados.
 
 ---
 
