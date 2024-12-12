@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 echo "Iniciando configuração do ambiente..."
 
 # Criar o .env se não existir
@@ -14,6 +12,10 @@ fi
 # Subir os containers
 echo "Iniciando os containers com docker-compose..."
 docker-compose up -d --build
+
+# Instalar dependências do projeto
+echo "Instalando dependências do projeto..."
+docker exec -it games composer install
 
 # Garantir permissões adequadas
 echo "Setando permissoes adequadas..."

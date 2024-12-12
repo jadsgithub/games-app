@@ -18,9 +18,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd sockets \
-    && apt-get update && apt-get install -y sqlite3 libsqlite3-dev \
-    && docker-php-ext-install pdo_sqlite
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd sockets
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -40,16 +38,5 @@ WORKDIR /var/www
 
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
-
-# Copy application files
-COPY . /var/www
-
-# Install dependencies
-RUN composer install
-
-# Configure tini
-RUN apt-get update && apt-get install -y tini
-ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["sh", "-c", "php artisan horizon & php-fpm"]
 
 USER $user

@@ -54,6 +54,22 @@ services:
         networks:
             - laravel
 
+    # horizon
+    horizon:
+        container_name: games-horizon
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        command: php artisan horizon
+        depends_on:
+            - redis
+            - db
+        networks:
+            - laravel
+        volumes:
+            - ./:/var/www
+
 networks:
     laravel:
         driver: bridge
