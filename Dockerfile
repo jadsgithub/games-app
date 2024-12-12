@@ -41,6 +41,12 @@ WORKDIR /var/www
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
+# Copy application files
+COPY . /var/www
+
+# Install dependencies
+RUN composer install
+
 # Configure tini
 RUN apt-get update && apt-get install -y tini
 ENTRYPOINT ["/usr/bin/tini", "--"]

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "Iniciando configuração do ambiente..."
 
 # Criar o .env se não existir
@@ -13,14 +15,9 @@ fi
 echo "Iniciando os containers com docker-compose..."
 docker-compose up -d --build
 
-# Instalar dependências do projeto
-echo "Instalando dependências do projeto..."
-docker exec -it games composer install
-
 # Garantir permissões adequadas
 echo "Setando permissoes adequadas..."
-chmod -R 775 storage bootstrap/cache
-chown -R www-data:www-data /var/www
+docker exec -it games chmod -R 775 storage bootstrap/cache
 
 # Configurar Laravel
 echo "Configurando Laravel..."
