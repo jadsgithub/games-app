@@ -18,7 +18,7 @@ class UserService
      * Returns all resource data
      * @return JsonResource
      */
-    public function all(): JsonResource
+    public function all(): ?JsonResource
     {
         try {
 
@@ -75,6 +75,7 @@ class UserService
         } catch (\Exception $e) {
 
             Log::info('Error store UserService: '.$e->getMessage().' Line: '.$e->getLine());
+            return ['message' => 'Erro ao tentar cadastrar o usuário!'];
 
         }
     }
@@ -97,6 +98,7 @@ class UserService
         } catch (\Exception $e) {
 
             Log::info('Error update UserService: '.$e->getMessage().' Line: '.$e->getLine());
+            return ['message' => 'Erro ao tentar atualizar o usuário!'];
 
         }
     }

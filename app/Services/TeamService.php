@@ -19,7 +19,7 @@ class TeamService
      * Returns all resource data
      * @return JsonResource
      */
-    public function all(): JsonResource
+    public function all(): ?JsonResource
     {
         try {
 
@@ -65,11 +65,12 @@ class TeamService
             
             $this->teamRepository::createTeam($request->all());           
 
-            return ['message' => 'Usuário cadastrado com sucesso!'];
+            return ['message' => 'Time cadastrado com sucesso!'];
 
         } catch (\Exception $e) {
 
             Log::info('Error store TeamService: '.$e->getMessage().' Line: '.$e->getLine());
+            return ['message' => 'Erro ao tentar cadastrar o time!'];
 
         }
     }
@@ -87,11 +88,12 @@ class TeamService
 
             $this->teamRepository::updateTeam($team->id, $request->all());
 
-            return ['message' => 'Usuário atualizado com sucesso!'];
+            return ['message' => 'Time atualizado com sucesso!'];
 
         } catch (\Exception $e) {
 
             Log::info('Error update TeamService: '.$e->getMessage().' Line: '.$e->getLine());
+            return ['message' => 'Erro ao tentar atualizar o time!'];
 
         }
     }
