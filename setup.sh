@@ -13,9 +13,13 @@ fi
 echo "Iniciando os containers com docker-compose..."
 docker-compose up -d --build
 
-# Instalar dependências do projeto
-echo "Instalando dependências do projeto..."
-docker exec -it games composer install
+# Verificar se os containers estão rodando
+echo "Verificando se os containers estão ativos..."
+until [ "$(docker inspect -f '{{.State.Running}}' games 2>/dev/null)" == "true" ]; do
+    echo "Containers ainda iniciando. Tentando novamente em 5 segundos..."
+    sleep 5
+done
+echo "Containers ativos."
 
 # Garantir permissões adequadas
 echo "Setando permissoes adequadas..."
