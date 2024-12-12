@@ -1,66 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Configuração e Informações do Projeto
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este guia explica como configurar o ambiente local para utilizar a API do projeto **Games App**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 1. Instalação do Docker
+Para executar o projeto, é necessário instalar o Docker. Siga as instruções para o seu sistema operacional:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Linux (Ubuntu):** [Guia de Instalação](https://docs.docker.com/engine/install/ubuntu/#installation-methods)
+- **Windows:** [Guia de Instalação](https://docs.docker.com/desktop/setup/install/windows-install/)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 2. Clonar o Repositório do Projeto
+Abra o terminal e execute o comando abaixo para clonar o repositório do projeto:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+git clone git@github.com:jadsgithub/games-app.git
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 3. Instalar e Configurar o Projeto
+1. Acesse a raiz do projeto pelo terminal:
 
-## Laravel Sponsors
+```bash
+cd games-app
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Execute o script de configuração:
 
-### Premium Partners
+```bash
+./setup.sh
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### O que acontece ao executar o script?
+- Os containers do projeto serão criados no Docker.
+- As dependências do projeto serão instaladas.
+- As migrations e seeders serão executados automaticamente.
+- Os testes da aplicação serão rodados.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 4. Acessar a Documentação da API
+Após a instalação, você pode acessar a documentação da API no seguinte endereço:
 
-## Code of Conduct
+[http://localhost/docs/api#/](http://localhost/docs/api#/)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Funcionalidades:
+A documentação permite testar todos os endpoints da API diretamente, sem necessidade de ferramentas externas, como Insomnia ou Postman.
+A documentação possui todas as informações sobre autenticação e exemplos de uso.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 5. Usuários de Teste (Admin e Comum)
+Durante a instalação, dois usuários de teste são criados automaticamente:
 
-## License
+- **Administrador:**
+  - **Email:** `admin@games.com`
+  - **Senha:** `admin@2024`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Usuário Comum:**
+  - **Email:** `user@games.com`
+  - **Senha:** `user@2024`
+
+### Criar Outros Usuários
+Novos usuários podem ser criados diretamente através dos endpoints na documentação.
+
+---
+
+## 6. Autenticação
+Para acessar a API, é necessário autenticar o usuário:
+
+1. Use as credenciais de teste (ou outras que você criar).
+2. Acesse o endpoint de login na documentação:
+   - **Caminho:** `Authentication -> Performs user login`
+   - **Endpoint:** [http://localhost/api/v1/login](http://localhost/api/v1/login)
+
+Após realizar o login, será gerado um token que pode ser usado para acessar os endpoints do projeto.
+
+---
+
+## 7. Gerar Token para Acesso Externo
+Depois de autenticado, você pode gerar um token para uso em integrações externas:
+
+1. Acesse o endpoint na documentação:
+   - **Caminho:** `Authentication -> Generate external token`
+   - **Endpoint:** [http://localhost/api/v1/generate-external-token](http://localhost/api/v1/generate-external-token)
+
+O token gerado permite acesso seguro aos endpoints da API.
+
+---
+
+## 8. Jobs em Segundo Plano
+O registro automático de times é realizado via jobs executados em segundo plano. Você pode monitorar os jobs através do Horizon:
+
+- **URL do Horizon:** [http://localhost/horizon/dashboard](http://localhost/horizon/dashboard)
+
+No painel do Horizon, é possível:
+- Acompanhar jobs pendentes.
+- Identificar e corrigir falhas.
+
+### Executar o Registro Automático de Times
+1. Utilize o endpoint na documentação:
+   - **Caminho:** `Team -> Automatically register teams`
+   - **Endpoint:** [http://localhost/api/v1/teams/register-teams-automatically](http://localhost/api/v1/teams/register-teams-automatically)
+
+---
+
+Este guia garante uma configuração simples e rápida para começar a utilizar a API do projeto **Games App**.
